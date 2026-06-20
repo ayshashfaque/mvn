@@ -1,0 +1,29 @@
+pipeline {
+    agent any
+
+    tools {
+        
+        maven 'MAVEN_HOME'
+    }
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                git url: 'https://github.com/ayshashfaque/mvn.git', branch: 'main'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                bat 'mvn clean compile'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                bat 'mvn test'
+            }
+        }
+    }
+}
