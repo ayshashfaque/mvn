@@ -1,28 +1,30 @@
 pipeline {
-    agent any 
+    agent any
+
     stages {
-        stage('Checkout'){
-            steps{
-                git branch: 'main',
-                url: 'https://github.com/ayshashfaque/mvn.git'
+
+        stage('Checkout') {
+            steps {
+                git 'https://github.com/ayshashfaque/mvn.git'
             }
         }
-        stage('Build'){
-            steps{
+
+        stage('Build') {
+            steps {
                 sh 'mvn clean package'
             }
-            
         }
-        stage('Copy Artifact'){
-            steps{
-                sh 'cp target/*.jar ~/deploy'
+
+        stage('Copy Artifact') {
+            steps {
+                sh 'cp target/*.jar dest/'
             }
         }
-        
-        stage('Deploy'){
-            steps{
-                sh 'ansible-playbook -i ~/deploy/hosts ~/deploy/deploy.yml'
+
+        stage('Deploy') {
+            steps {
+                sh 'ansible-playbook -i inventory playbook.yml'
             }
         }
     }
-    }
+}
