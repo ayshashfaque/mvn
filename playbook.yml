@@ -1,0 +1,15 @@
+---
+- hosts: app
+  connection: local
+
+  tasks:
+    - name: Create dest
+      file:
+        path: dest
+        state: directory
+
+    - name: Copy JAR
+      copy:
+        src: target/testapp-1.0-SNAPSHOT.jar
+        dest: dest/testapp-1.0-SNAPSHOT.jar
+        remote_src: yes
