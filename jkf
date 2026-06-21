@@ -5,7 +5,8 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                git 'https://github.com/ayshashfaque/mvn.git'
+                git branch: 'main',
+                    url: 'https://github.com/ayshashfaque/mvn.git'
             }
         }
 
@@ -27,5 +28,6 @@ pipeline {
                 sh 'ansible-playbook -i inventory playbook.yml'
             }
         }
+
     }
 }
